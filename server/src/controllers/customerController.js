@@ -1,13 +1,13 @@
-const Booking = require("../models/Booking");
-const User = require("../models/User");
+import Booking from "../models/Booking.js";
+import User from "../models/User.js";
 
 // GET /api/customer/profile
-exports.customerProfile = async (req, res) => {
+export const customerProfile = async (req, res) => {
     res.json({ message: "Customer profile", user: req.user });
 };
 
 // POST /api/customer/book-worker
-exports.bookWorker = async (req, res) => {
+export const bookWorker = async (req, res) => {
     const { workerId, task, date, time } = req.body;
 
     try {
@@ -32,7 +32,7 @@ exports.bookWorker = async (req, res) => {
 };
 
 // GET /api/customer/my-bookings
-exports.myBookings = async (req, res) => {
+export const myBookings = async (req, res) => {
     try {
         const bookings = await Booking.find({ customer: req.user._id })
             .populate("worker", "name email phone");
@@ -42,7 +42,7 @@ exports.myBookings = async (req, res) => {
     }
 };
 
-exports.availableWorkers = async (req, res) => {
+export const availableWorkers = async (req, res) => {
     try {
         const workers = await User.find({ role: "worker", approved: true }).select("name email phone");
         res.json({ workers });

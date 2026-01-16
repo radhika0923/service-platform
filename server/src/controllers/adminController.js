@@ -1,18 +1,18 @@
-const User = require("../models/User");
-const Booking = require("../models/Booking");
+import User from "../models/User.js";
+import Booking from "../models/Booking.js";
 
 // GET /api/admin/all-users
-exports.allUsers = async (req, res) => {
+export const allUsers = async (req, res) => {
     try {
         const users = await User.find().select("-password");
-        res.json({ users });
+        res.json({ users });                                                          
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 };
 
 // PATCH /api/admin/approve-worker/:id
-exports.approveWorker = async (req, res) => {
+export const approveWorker = async (req, res) => {
     const { id } = req.params;
     try {
         const worker = await User.findById(id);
@@ -30,7 +30,7 @@ exports.approveWorker = async (req, res) => {
 };
 
 // GET /api/admin/all-bookings
-exports.allBookings = async (req, res) => {
+export const allBookings = async (req, res) => {
     try {
         const bookings = await Booking.find()
             .populate("customer", "name email phone")
@@ -39,4 +39,6 @@ exports.allBookings = async (req, res) => {
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
-};
+};                    
+
+

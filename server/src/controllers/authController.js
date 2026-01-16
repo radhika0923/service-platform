@@ -1,6 +1,6 @@
-const User = require("../models/User");
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcryptjs"); 
+import User from "../models/User.js";
+import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt"; 
 // Generate JWT Token
 const generateToken = (user) => {
     return jwt.sign(
@@ -13,7 +13,7 @@ const generateToken = (user) => {
 // @desc Signup new user
 // @route POST /api/auth/signup
 // @access Public
-exports.signup = async (req, res) => {
+export const signup = async (req, res) => {
     const { name, email, phone, password, role } = req.body;
     try {
         console.log("Signup request body:", req.body);
@@ -46,7 +46,7 @@ exports.signup = async (req, res) => {
 // @desc Login user
 // @route POST /api/auth/login
 // @access Public
-exports.login = async (req, res) => {
+export const login = async (req, res) => {
     const { email, password } = req.body;
     try {
         const user = await User.findOne({ email });
